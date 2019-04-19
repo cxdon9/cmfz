@@ -3,6 +3,7 @@ package com.baizhi;
 import com.baizhi.entity.Album;
 import com.baizhi.entity.Banner;
 import com.baizhi.entity.Menu;
+import com.baizhi.mapper.BannerDao;
 import com.baizhi.service.AlbumService;
 import com.baizhi.service.BannerService;
 import com.baizhi.service.MenuService;
@@ -22,6 +23,8 @@ public class CmfzApplicationTests {
     @Autowired
     private BannerService bannerService;
     @Autowired
+    private BannerDao bannerDao;
+    @Autowired
     private AlbumService albumService;
 
     @Test
@@ -34,7 +37,7 @@ public class CmfzApplicationTests {
 
     @Test
     public void banner() {
-        List<Banner> list = (List<Banner>) bannerService.selectAll(1, 5);
+        List<Banner> list = bannerDao.selectAll();
         for (Banner banner : list) {
             System.out.println(banner);
         }

@@ -55,7 +55,15 @@
                     tools: [{
                         iconCls: 'icon-mini-refresh',
                         handler: function () {
-                            $('#dg_banner').edatagrid('load');
+                            /*$('#dg_banner').edatagrid('load');*/
+                            var currTab = $('#tt').tabs('getSelected'); //获得当前tab
+                            var url = $(currTab.panel('options').content).attr('src');
+                            $('#tt').tabs('update', {
+                                tab: currTab,
+                                options: {
+                                    href: url
+                                }
+                            });
                         }
                     }]
                 });

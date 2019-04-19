@@ -28,6 +28,12 @@
                 //alert('帮助按钮')
                 $('#dg_banner').edatagrid('saveRow');
             }
+        }, '-', {
+            iconCls: 'icon-sport_basketball',
+            text: '导出',
+            handler: function () {
+                exportXsl();
+            }
         }];
         $("#dg_banner").edatagrid({
             method: "get",
@@ -85,6 +91,10 @@
                 }
             }
         });
+    }
+
+    function exportXsl() {
+        window.location.href = ("${pageContext.request.contextPath}/banner/exportXsl");
     }
 </script>
 

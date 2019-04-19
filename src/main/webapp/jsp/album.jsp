@@ -130,16 +130,20 @@
             dataType: "json",
             success: function (data) {
                 if (data != null && data.length > 0) {
-                    var s1 = "";
-                    for (var i = 0; i < data.length; i++) {
-                        var obj = data[i];
-                        s1 += "<option value='" + obj.id + "'>" + obj.title + "</option>"
+                    var s2 = $("#album_id").val();
+                    if (s2 == null) {
+                        var s1 = "";
+                        for (var i = 0; i < data.length; i++) {
+                            var obj = data[i];
+                            s1 += "<option value='" + obj.id + "'>" + obj.title + "</option>"
+                        }
+                        $("#album_id").prepend(s1);
                     }
-                    $("#album_id").prepend(s1);
+                    $("#dd_chapter").dialog("open");
                 } else {
                     alert("未查询到专辑,请先添加一个专辑.")
                 }
-                $("#dd_chapter").dialog("open");
+
             }
         })
     }
