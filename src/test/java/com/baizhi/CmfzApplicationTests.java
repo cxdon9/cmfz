@@ -1,7 +1,9 @@
 package com.baizhi;
 
+import com.baizhi.entity.Album;
 import com.baizhi.entity.Banner;
 import com.baizhi.entity.Menu;
+import com.baizhi.service.AlbumService;
 import com.baizhi.service.BannerService;
 import com.baizhi.service.MenuService;
 import org.junit.Test;
@@ -19,6 +21,8 @@ public class CmfzApplicationTests {
     private MenuService menuService;
     @Autowired
     private BannerService bannerService;
+    @Autowired
+    private AlbumService albumService;
 
     @Test
     public void contextLoads() {
@@ -33,6 +37,14 @@ public class CmfzApplicationTests {
         List<Banner> list = (List<Banner>) bannerService.selectAll(1, 5);
         for (Banner banner : list) {
             System.out.println(banner);
+        }
+    }
+
+    @Test
+    public void Album() {
+        List<Album> list = albumService.getAlbum();
+        for (Album album : list) {
+            System.out.println(album);
         }
     }
 }

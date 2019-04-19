@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.mapper.AlbumDao">
+    <resultMap id="Album" type="com.baizhi.entity.Album">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="amount" property="amount"/> <!--集数-->
+        <result column="img_path" property="img_path"/>
+        <result column="score" property="score"/>
+        <result column="author" property="author"/>
+        <result column="boardcast" property="boardcast"/>
+        <result column="publish_date" property="publish_date"/>
+        <result column="brief" property="brief"/>
+
+        <collection property="children" javaType="java.util.List" ofType="com.baizhi.entity.Chapter">
+            <result column="cid" property="id"/>
+            <result column="ctitle" property="title"/>
+            <result column="size" property="size"/>
+            <result column="duration" property="duration"/>
+            <result column="cpublish_date" property="publish_date"/>
+            <result column="down_load_path" property="down_load_path"/>
+            <result column="calbum_id" property="album_id"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAlbum" resultMap="Album">
+        select a.*,
+               c.id    cid,
+               c.title ctitle,
+               c.size
+               size,
+               c
+               .
+               duration
+               duration,
+               c
+               .
+               publish_date
+               cpublish_date,
+               c
+               .
+               down_load_path
+               down_load_path,
+               c
+               .
+               album_id
+               calbum_id
+        from album
+             a
+             left
+             join
+             chapter
+             c
+        on a
+           .
+           id =
+           c
+           .
+           album_id;
+    </select>
+
+
+</mapper>

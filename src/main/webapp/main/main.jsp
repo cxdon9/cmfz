@@ -20,7 +20,6 @@
                 url: '${pageContext.request.contextPath}/menu/menu',
                 dataType: 'JSON',
                 success: function (data) {
-                    console.log(data);
                     //第一个参数是要遍历的集合对象，函数中第一个参数是遍历的下标 注意：两次遍历的下标名字不要相同  第二个参数是每次遍历出来的对象
                     $.each(data, function (index1, first) {
                         //console.log(first.title)
@@ -63,7 +62,6 @@
             } else {
                 $('#tt').tabs('select', second.title);
             }
-
         }
     </script>
 

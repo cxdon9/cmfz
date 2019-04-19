@@ -71,13 +71,16 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.56</version>
         </dependency>
-
         <!--pagehelper-->
-
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baizhi</groupId>
+            <artifactId>jave-1.0.2</artifactId>
+            <version>1.0.2</version>
         </dependency>
     </dependencies>
 

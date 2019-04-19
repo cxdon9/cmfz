@@ -29,7 +29,6 @@
                 $('#dg_banner').edatagrid('saveRow');
             }
         }];
-
         $("#dg_banner").edatagrid({
             method: "get",
             url: "${pageContext.request.contextPath}/banner/selectAll",
@@ -58,7 +57,6 @@
             ]],
             view: detailview,
             detailFormatter: function (rowIndex, rowData) {
-                console.log(rowData)
                 return '<table><tr>' +
                     '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/img/shouye/' + rowData.img_path + '" style="height:50px;"></td>' +
                     '<td style="border:0">' +
@@ -68,6 +66,7 @@
                     '</tr></table>';
             }
         })
+
     })
 
     function addBanner() {
@@ -91,7 +90,6 @@
 
 
 <table id="dg_banner"></table>
-
 
 <div id="dd_banner" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
      data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,
