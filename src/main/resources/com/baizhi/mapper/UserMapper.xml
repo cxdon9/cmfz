@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baizhi.mapper.UserDao">
+    <resultMap id="userResultMap" type="User">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="dharma" property="dharma"/>
+        <result column="sex" property="sex"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="sign" property="sign"/>
+        <result column="status" property="status"/>
+        <result column="phone" property="phone"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="head_img" property="headImg"/>
+        <result column="create_date" property="createDate"/>
+        <association property="master" javaType="Master">
+            <id column="id1" property="id"/>
+            <result column="dharma1" property="dharma"/>
+            <result column="status1" property="status"/>
+            <result column="head_img1" property="headImg"/>
+        </association>
+
+    </resultMap>
+
+    <select id="queryAll" resultMap="userResultMap">
+        SELECT t1.*,
+               t2.id       id1,
+               t2.dharma   dharma1,
+               t2.status   status1,
+               t2.head_img head_img1
+        FROM user t1
+                 LEFT JOIN master t2
+                           ON t1.master_id = t2.id
+             limit
+             #{start},
+             #{rows}
+    </select>
+
+    <select id="selectRegistUserNumber" resultType="int">
+        select count(*)
+        from user
+        where DATEDIFF(NOW(), create_date) &lt; #{day}
+    </select>
+
+    <select id="selectUserDistribution" resultType="UserDTO">
+        select count(*) value,province name
+        from user
+        where sex=#{sex}
+        GROUP BY province
+    </select>
+
+    <insert id="add">
+        insert into user (name, dharma, sex, province, city, sign, status, phone, password, salt, head_img,
+                          master_id)
+        values (#{name}, #{dharma}, #{sex}, #{province}, #{city}, #{sign}, 1, #{phone}, #{password}, #{salt},
+                #{headImg}, 1)
+    </insert>
+    <select id="selectByphone" resultMap="userResultMap">
+        select *
+        from user
+        where phone = #{phone}
+    </select>
+</mapper>

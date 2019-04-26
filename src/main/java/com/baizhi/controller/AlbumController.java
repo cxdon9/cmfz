@@ -1,16 +1,20 @@
 package com.baizhi.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.baizhi.entity.Album;
 import com.baizhi.entity.Chapter;
 import com.baizhi.mapper.ChapterDao;
 import com.baizhi.service.AlbumService;
 import com.baizhi.util.AudioUtil;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
@@ -28,7 +32,6 @@ public class AlbumController {
     @RequestMapping("getAlbum")
     @ResponseBody
     public List<Album> getAlbum() {
-//        System.out.println(albumService.getAlbum());
         return albumService.getAlbum();
     }
 
@@ -117,6 +120,32 @@ public class AlbumController {
                 break;
             }
             os.write(i);
+        }
+    }
+
+    @RequestMapping("exportXsl")
+    public void exportXsl(HttpServletResponse response) {
+        List<Album> list = albumService.getAlbum();
+        for (Album album : list) {
+            album.setImg_path("D:\\IdealCode2\\cmfz\\src\\main\\webapp\\img\\audioCollection\\" + album.getImg_path());
+        }
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("持明法洲专辑", "专辑详情"), Album.class, list);
+        String oldName = "专辑.xlsx";
+        String encode = null;
+        try {
+            encode = URLEncoder.encode(oldName, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        //设置响应头
+        response.setHeader("Content-Disposition", "attachment;fileName=" + encode);
+        ServletOutputStream outputStream = null;
+        try {
+            outputStream = response.getOutputStream();
+            //直接将写入到输出流中即可;
+            workbook.write(outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

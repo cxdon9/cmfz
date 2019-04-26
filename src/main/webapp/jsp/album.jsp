@@ -35,8 +35,14 @@
                     alert("请选择对应的章节...")
                 } else {
                     c = c.id;
+                    download(c);
                 }
-                download(c);
+            }
+        }, '-', {
+            iconCls: 'icon-print',
+            text: '导出',
+            handler: function () {
+                down();
             }
         }];
 
@@ -169,6 +175,10 @@
 
     function download(cc) {
         window.location.href = ("${pageContext.request.contextPath}/album/download?id=" + cc);
+    }
+
+    function down() {
+        window.location.href = ("${pageContext.request.contextPath}/album/exportXsl");
     }
 </script>
 
